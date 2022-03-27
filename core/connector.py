@@ -27,3 +27,11 @@ class DatabaseConnector:
         response = [dict((self.query.description[i][0], value) for i, value in enumerate(row)) for row in
                     self.query.fetchall()]
         pprint(response)
+
+    def call_procedure(self, name: str, arguments: list = tuple()):
+        self.query.callproc(name, arguments)
+        for result in self.query.stored_results():
+            print(result.fetchall())
+
+    def create_procedure(self, query: str):
+        pass
