@@ -125,7 +125,7 @@ class Command(BaseCommand):
                 actors_copy.*,
                 self.salary
             from filmography
-                inner join filmography as self on filmography.salary = self.salary 
+                join filmography as self on filmography.salary = self.salary 
                     and self.actor_id <> filmography.actor_id
                 left join actors on filmography.actor_id = actors.id
                 left join actors as actors_copy on self.actor_id = actors_copy.id
