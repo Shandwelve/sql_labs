@@ -14,8 +14,8 @@ class Command(BaseCommand):
             select films.*,
                 actors.name as actor_name
             from films
-                left join filmography on films.id = filmography.film_id
-                left join actors on filmography.actor_id = actors.id
+                join filmography on films.id = filmography.film_id
+                join actors on filmography.actor_id = actors.id
             where actors.name = 'Johnny Deep';
             """
         )
@@ -30,8 +30,8 @@ class Command(BaseCommand):
                 filmography.role,
                 actors.name as actor_name
             from films
-                left join filmography on films.id = filmography.film_id
-                left join actors on filmography.actor_id = actors.id
+                join filmography on films.id = filmography.film_id
+                join actors on filmography.actor_id = actors.id
             where actors.name = 'Johnny Deep';
             """
         )
@@ -83,7 +83,7 @@ class Command(BaseCommand):
             """
             select count(filmography.actor_id) as author_count
             from filmography
-                left join films on filmography.film_id = films.id
+                join films on filmography.film_id = films.id
             where films.title = "L'odyssee de Pi";
             """
         )
@@ -96,7 +96,7 @@ class Command(BaseCommand):
             """
             select distinct actors.*
             from filmography
-                left join actors on filmography.actor_id = actors.id;
+                join actors on filmography.actor_id = actors.id;
             """
         )
 
@@ -110,7 +110,7 @@ class Command(BaseCommand):
             select actors.*,
                 avg(salary) as Mediu
             from filmography
-                left join actors on filmography.actor_id = actors.id
+                join actors on filmography.actor_id = actors.id
             group by filmography.actor_id;
             """
         )
