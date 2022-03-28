@@ -43,10 +43,9 @@ class Command(BaseCommand):
         """
         self.database.dump(
             """
-            select self.*
+            select *
             from films
-                join films as self on films.director = self.director
-            where films.title = 'Le parrain';
+            where director = (select director from films where title = 'Le parrain');
             """
         )
 
