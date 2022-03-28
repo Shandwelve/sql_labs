@@ -17,7 +17,7 @@ class Command(BaseCommand):
             begin
                 select articles.*
                 from explorers
-                         inner join articles on explorers.article_id = articles.id
+                        join articles on explorers.article_id = articles.id
                 where explorers.id = explorer_id
                 order by articles.title;
             end$$

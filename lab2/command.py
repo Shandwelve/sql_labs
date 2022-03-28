@@ -57,7 +57,8 @@ class Command(BaseCommand):
             where self.age = persons.age 
                 and self.id < persons.id
             order by persons.age,
-                persons.name, self.name;
+                persons.name,
+                self.name;
             """
         )
 
@@ -128,7 +129,7 @@ class Command(BaseCommand):
             """
             select count(persons.id) - count(self.age)
             from persons
-                left join persons as self on self.id = persons.id 
+                join persons as self on self.id = persons.id 
                     and self.age < 18
             """
         )
@@ -182,7 +183,6 @@ class Command(BaseCommand):
     def case_11(self):
         """
         11. Numele și vârsta persoanelor cu cel mai mare număr de prieteni.
-            (having is alternative of max(count(*))
         """
         self.database.dump(
             """
@@ -192,14 +192,7 @@ class Command(BaseCommand):
                 join friends on persons.id = friends.first_person_id 
                 or persons.id = friends.second_person_id
             group by persons.id
-            having friends = (
-                select count(persons.id) as friends
-                from persons
-                    join friends on persons.id = friends.first_person_id 
-                    or persons.id = friends.second_person_id
-                group by persons.id
-                order by friends desc
-                limit 1
+            having max(count(*))
                 );
             """
         )

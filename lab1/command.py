@@ -121,15 +121,12 @@ class Command(BaseCommand):
         """
         self.database.dump(
             """
-            select actors.*,
-                actors_copy.*,
-                self.salary
-            from filmography
-                join filmography as self on filmography.salary = self.salary 
-                    and self.actor_id <> filmography.actor_id
-                left join actors on filmography.actor_id = actors.id
-                left join actors as actors_copy on self.actor_id = actors_copy.id
-            where actors.id < actors_copy.id;
+            select group_concat(distinct actors.name) as actors,
+                   filmography.salary
+            from actors
+            join filmography on actors.id = filmography.actor_id
+            group by filmography.salary
+            having count(*) > 1;
             """
         )
 

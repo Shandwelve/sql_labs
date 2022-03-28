@@ -180,7 +180,7 @@ class Command(BaseCommand):
             """
             drop trigger if exists cascadeDeletePersonIdInFriendsTable;
             create trigger cascadeDeletePersonIdInFriendsTable
-                after delete
+                before delete
                 on persons
                 for each row
             begin
